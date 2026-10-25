@@ -1,5 +1,10 @@
 # Changelog
 
+## [0.1.1] - 2026-10-26
+
+### Changed
+- Homepage moved to the intro site https://pdf2note.hossam.kr/.
+
 ## [0.1.0] - 2026-10-25
 
 ### Added
