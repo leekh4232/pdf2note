@@ -10,4 +10,4 @@
 - `.ipynb`/`.md` inputs are rendered in memory by the Ipynb PDF Converter extension's API (no temp files).
 - Layout rules of the script: landscape sources get the note area below with a border, portrait sources to the right; `/Rotate` pages laid out as displayed; feedback mode (banner + divider); named paper sizes or original size; dimensions scaled with the page.
 - Header/footer with `{file}` `{date}` `{page}` `{total}`, alignment and size, Korean text via a bundled NanumGothic (subset-embedded).
-- AES-256 password protection with permissions and owner password, teacher mode marks (hossam/jussam), progress notification with cancel, never-overwrite naming `name (1).pdf`, Korean/English UI strings.
+- AES-256 password protection with permissions and owner password (empty owner password = the PDF password), teacher mode marks (hossam/jussam), progress notification with cancel, never-overwrite naming `name (1).pdf`, Korean/English UI strings.

@@ -23,7 +23,7 @@
   "config.openAfterConvert.description": "Open the note PDF in the system viewer when done.",
   "config.pdfPassword.description": "Default password for the '… with Password' commands. Leave empty to be prompted each time. The plain commands never apply it. Stored in plain text in settings. Encryption is AES-256.",
   "config.pdfPermissions.description": "What a reader who opens an encrypted PDF with the password may do. Default = ipynb-pdf-converter's rule: annotations and form filling only (no printing, copying or editing).",
-  "config.ownerPassword.description": "Owner password of encrypted PDFs, which unlocks everything pdfPermissions denies. Empty = a random one per file, so nobody (including you) can lift the limits later.",
+  "config.ownerPassword.description": "Owner password of encrypted PDFs, which unlocks everything pdfPermissions denies. Empty = the same as the PDF password (pdfPassword, or the one typed in the prompt). Note that the limits then do not bind anyone who knows that password.",
   "config.teacherMode.description": "Adds the hossam / jussam commands (each with and without password) to the context menus and palette. They draw the instructor mark (https://data.hossam.kr/itwill-ho.png or itwill-ju.png, 100 pt wide) at the top right of every page in place of headerText.",
   "config.paperSize.enum.0": "Original size (grow the page around the source)",
   "config.paperSize.enum.1": "A0 (841 × 1189 mm)",

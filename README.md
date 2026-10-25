@@ -74,7 +74,7 @@
 | `openAfterConvert` | `false` | 변환 후 시스템 뷰어로 열기 |
 | `pdfPassword` | 비움 | 비우면 실행 때마다 팝업. `settings.json`에 평문으로 저장됨 |
 | `pdfPermissions` | `["annot-forms"]` | 열람자에게 허용할 작업 `print` · `copy` · `modify` · `annot-forms` |
-| `ownerPassword` | 비움 | 비우면 파일마다 무작위라 나중에 본인도 제한을 풀 수 없음 |
+| `ownerPassword` | 비움 | 비우면 PDF 비밀번호(`pdfPassword` 또는 팝업 입력값)와 같음. 이때는 그 비밀번호를 아는 사람에게 `pdfPermissions` 제한이 적용되지 않음 |
 | `teacherMode` | `false` | hossam/jussam 명령 추가. Ipynb PDF Converter와 같은 규칙 |
 
 ## 라이선스

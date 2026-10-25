@@ -2,7 +2,6 @@ import * as vscode from 'vscode';
 import * as path from 'path';
 import { promises as fs } from 'fs';
 import { fileURLToPath } from 'url';
-import { randomBytes } from 'crypto';
 import { addNoteArea, loadSource, permissionFlags, resolvePaper, Align, PAPER_SIZES, SourceEncryptedError, WrongPasswordError } from './note';
 import type { PDFDocument } from '@cantoo/pdf-lib';
 
@@ -298,11 +297,12 @@ async function addNotesToFile(
   });
   layoutWarnings.forEach(warn);
 
-  // 4. Password (same rule as ipynb-pdf-converter; AES-256 here).
+  // 4. Password (same rule as ipynb-pdf-converter; AES-256 here). An empty
+  //    ownerPassword falls back to the user password.
   if (password) {
     doc.encrypt({
       userPassword: password,
-      ownerPassword: settings.ownerPassword || randomBytes(16).toString('hex'),
+      ownerPassword: settings.ownerPassword || password,
       permissions: permissionFlags(settings.pdfPermissions),
       algorithm: 'AES-256',
     });

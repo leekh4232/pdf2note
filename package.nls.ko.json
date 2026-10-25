@@ -23,7 +23,7 @@
   "config.openAfterConvert.description": "완료되면 시스템 뷰어로 노트 PDF를 엽니다.",
   "config.pdfPassword.description": "'… 비밀번호' 명령이 쓰는 기본 비밀번호. 비우면 실행 때마다 입력받습니다. 일반 명령은 적용하지 않습니다. 설정에 평문으로 저장되며 암호화는 AES-256입니다.",
   "config.pdfPermissions.description": "비밀번호로 연 열람자에게 허용할 작업. 기본값 = ipynb-pdf-converter 규칙: 주석과 양식 작성만 (인쇄·복사·편집 금지).",
-  "config.ownerPassword.description": "암호화 PDF의 소유자 비밀번호. pdfPermissions가 막은 것을 모두 풀 수 있습니다. 비우면 파일마다 무작위라 나중에 본인도 제한을 풀 수 없습니다.",
+  "config.ownerPassword.description": "암호화 PDF의 소유자 비밀번호. pdfPermissions가 막은 것을 모두 풀 수 있습니다. 비우면 PDF 비밀번호(pdfPassword 또는 팝업에 입력한 값)와 같습니다. 이 경우 그 비밀번호를 아는 사람에게는 권한 제한이 적용되지 않습니다.",
   "config.teacherMode.description": "우클릭 메뉴와 명령 팔레트에 hossam / jussam 명령(각각 비밀번호 유무)을 추가합니다. 강사 마크(https://data.hossam.kr/itwill-ho.png 또는 itwill-ju.png, 폭 100 pt)를 모든 페이지 우측 상단에 headerText 대신 그립니다.",
   "config.paperSize.enum.0": "원본 크기 그대로 (페이지를 키움)",
   "config.paperSize.enum.1": "A0 (841 × 1189 mm)",
