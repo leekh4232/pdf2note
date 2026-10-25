@@ -4,7 +4,7 @@
 
 형식은 [Keep a Changelog](https://keepachangelog.com/ko/1.1.0/)를, 버전은 [유의적 버전](https://semver.org/lang/ko/)을 따릅니다.
 
-## [미배포]
+## [0.2.0] - 2026-10-26
 
 ### 추가
 - **`.ipynb` · `.md` 입력도 텍스트를 선택 · 복사 · 검색할 수 있습니다.** Ipynb PDF Converter 0.10 이상이 만든 PDF의 텍스트 층이 결과 PDF에 그대로 남습니다. `.pdf` 입력은 원본에 있던 텍스트를 그대로 유지합니다.
