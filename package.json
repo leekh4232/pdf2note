@@ -1,0 +1,415 @@
+{
+  "name": "pdf2note",
+  "displayName": "PDF2Note",
+  "description": "%description%",
+  "version": "0.1.0",
+  "publisher": "leekh",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/leekh4232/pdf2note"
+  },
+  "author": {
+    "name": "이광호",
+    "email": "leekh4232@gmail.com"
+  },
+  "license": "MIT",
+  "icon": "media/icon.png",
+  "engines": {
+    "vscode": "^1.84.0"
+  },
+  "categories": [
+    "Other"
+  ],
+  "activationEvents": [],
+  "main": "./out/extension.js",
+  "extensionDependencies": [
+    "leekh.ipynb-pdf-converter"
+  ],
+  "contributes": {
+    "commands": [
+      {
+        "command": "pdf2note.addNotes",
+        "title": "%cmd.addNotes.title%",
+        "category": "PDF2Note"
+      },
+      {
+        "command": "pdf2note.addNotesWithPassword",
+        "title": "%cmd.addNotesWithPassword.title%",
+        "category": "PDF2Note"
+      },
+      {
+        "command": "pdf2note.addNotesHossam",
+        "title": "%cmd.addNotesHossam.title%",
+        "category": "PDF2Note"
+      },
+      {
+        "command": "pdf2note.addNotesHossamWithPassword",
+        "title": "%cmd.addNotesHossamWithPassword.title%",
+        "category": "PDF2Note"
+      },
+      {
+        "command": "pdf2note.addNotesJussam",
+        "title": "%cmd.addNotesJussam.title%",
+        "category": "PDF2Note"
+      },
+      {
+        "command": "pdf2note.addNotesJussamWithPassword",
+        "title": "%cmd.addNotesJussamWithPassword.title%",
+        "category": "PDF2Note"
+      }
+    ],
+    "menus": {
+      "explorer/context": [
+        {
+          "command": "pdf2note.addNotes",
+          "when": "resourceExtname == .pdf || resourceExtname == .ipynb || resourceExtname == .md",
+          "group": "navigation@90"
+        },
+        {
+          "command": "pdf2note.addNotesWithPassword",
+          "when": "resourceExtname == .pdf || resourceExtname == .ipynb || resourceExtname == .md",
+          "group": "navigation@91"
+        },
+        {
+          "command": "pdf2note.addNotesHossam",
+          "when": "(resourceExtname == .pdf || resourceExtname == .ipynb || resourceExtname == .md) && config.pdf2note.teacherMode",
+          "group": "navigation@92"
+        },
+        {
+          "command": "pdf2note.addNotesHossamWithPassword",
+          "when": "(resourceExtname == .pdf || resourceExtname == .ipynb || resourceExtname == .md) && config.pdf2note.teacherMode",
+          "group": "navigation@93"
+        },
+        {
+          "command": "pdf2note.addNotesJussam",
+          "when": "(resourceExtname == .pdf || resourceExtname == .ipynb || resourceExtname == .md) && config.pdf2note.teacherMode",
+          "group": "navigation@94"
+        },
+        {
+          "command": "pdf2note.addNotesJussamWithPassword",
+          "when": "(resourceExtname == .pdf || resourceExtname == .ipynb || resourceExtname == .md) && config.pdf2note.teacherMode",
+          "group": "navigation@95"
+        }
+      ],
+      "editor/title/context": [
+        {
+          "command": "pdf2note.addNotes",
+          "when": "resourceExtname == .pdf || resourceExtname == .ipynb || resourceExtname == .md",
+          "group": "navigation@90"
+        },
+        {
+          "command": "pdf2note.addNotesWithPassword",
+          "when": "resourceExtname == .pdf || resourceExtname == .ipynb || resourceExtname == .md",
+          "group": "navigation@91"
+        },
+        {
+          "command": "pdf2note.addNotesHossam",
+          "when": "(resourceExtname == .pdf || resourceExtname == .ipynb || resourceExtname == .md) && config.pdf2note.teacherMode",
+          "group": "navigation@92"
+        },
+        {
+          "command": "pdf2note.addNotesHossamWithPassword",
+          "when": "(resourceExtname == .pdf || resourceExtname == .ipynb || resourceExtname == .md) && config.pdf2note.teacherMode",
+          "group": "navigation@93"
+        },
+        {
+          "command": "pdf2note.addNotesJussam",
+          "when": "(resourceExtname == .pdf || resourceExtname == .ipynb || resourceExtname == .md) && config.pdf2note.teacherMode",
+          "group": "navigation@94"
+        },
+        {
+          "command": "pdf2note.addNotesJussamWithPassword",
+          "when": "(resourceExtname == .pdf || resourceExtname == .ipynb || resourceExtname == .md) && config.pdf2note.teacherMode",
+          "group": "navigation@95"
+        }
+      ],
+      "editor/context": [
+        {
+          "command": "pdf2note.addNotes",
+          "when": "resourceExtname == .pdf || resourceExtname == .ipynb || resourceExtname == .md",
+          "group": "navigation@90"
+        },
+        {
+          "command": "pdf2note.addNotesWithPassword",
+          "when": "resourceExtname == .pdf || resourceExtname == .ipynb || resourceExtname == .md",
+          "group": "navigation@91"
+        },
+        {
+          "command": "pdf2note.addNotesHossam",
+          "when": "(resourceExtname == .pdf || resourceExtname == .ipynb || resourceExtname == .md) && config.pdf2note.teacherMode",
+          "group": "navigation@92"
+        },
+        {
+          "command": "pdf2note.addNotesHossamWithPassword",
+          "when": "(resourceExtname == .pdf || resourceExtname == .ipynb || resourceExtname == .md) && config.pdf2note.teacherMode",
+          "group": "navigation@93"
+        },
+        {
+          "command": "pdf2note.addNotesJussam",
+          "when": "(resourceExtname == .pdf || resourceExtname == .ipynb || resourceExtname == .md) && config.pdf2note.teacherMode",
+          "group": "navigation@94"
+        },
+        {
+          "command": "pdf2note.addNotesJussamWithPassword",
+          "when": "(resourceExtname == .pdf || resourceExtname == .ipynb || resourceExtname == .md) && config.pdf2note.teacherMode",
+          "group": "navigation@95"
+        }
+      ],
+      "notebook/cell/title": [
+        {
+          "command": "pdf2note.addNotes",
+          "when": "notebookType == jupyter-notebook",
+          "group": "z_note@90"
+        },
+        {
+          "command": "pdf2note.addNotesWithPassword",
+          "when": "notebookType == jupyter-notebook",
+          "group": "z_note@91"
+        },
+        {
+          "command": "pdf2note.addNotesHossam",
+          "when": "notebookType == jupyter-notebook && config.pdf2note.teacherMode",
+          "group": "z_note@92"
+        },
+        {
+          "command": "pdf2note.addNotesHossamWithPassword",
+          "when": "notebookType == jupyter-notebook && config.pdf2note.teacherMode",
+          "group": "z_note@93"
+        },
+        {
+          "command": "pdf2note.addNotesJussam",
+          "when": "notebookType == jupyter-notebook && config.pdf2note.teacherMode",
+          "group": "z_note@94"
+        },
+        {
+          "command": "pdf2note.addNotesJussamWithPassword",
+          "when": "notebookType == jupyter-notebook && config.pdf2note.teacherMode",
+          "group": "z_note@95"
+        }
+      ],
+      "commandPalette": [
+        {
+          "command": "pdf2note.addNotes",
+          "when": "resourceExtname == .pdf || resourceExtname == .ipynb || resourceExtname == .md"
+        },
+        {
+          "command": "pdf2note.addNotesWithPassword",
+          "when": "resourceExtname == .pdf || resourceExtname == .ipynb || resourceExtname == .md"
+        },
+        {
+          "command": "pdf2note.addNotesHossam",
+          "when": "(resourceExtname == .pdf || resourceExtname == .ipynb || resourceExtname == .md) && config.pdf2note.teacherMode"
+        },
+        {
+          "command": "pdf2note.addNotesHossamWithPassword",
+          "when": "(resourceExtname == .pdf || resourceExtname == .ipynb || resourceExtname == .md) && config.pdf2note.teacherMode"
+        },
+        {
+          "command": "pdf2note.addNotesJussam",
+          "when": "(resourceExtname == .pdf || resourceExtname == .ipynb || resourceExtname == .md) && config.pdf2note.teacherMode"
+        },
+        {
+          "command": "pdf2note.addNotesJussamWithPassword",
+          "when": "(resourceExtname == .pdf || resourceExtname == .ipynb || resourceExtname == .md) && config.pdf2note.teacherMode"
+        }
+      ]
+    },
+    "configuration": {
+      "title": "%config.title%",
+      "properties": {
+        "pdf2note.paperSize": {
+          "type": "string",
+          "default": "original",
+          "enum": [
+            "original",
+            "A0",
+            "A1",
+            "A2",
+            "A3",
+            "A4",
+            "A5",
+            "A6",
+            "B0",
+            "B1",
+            "B2",
+            "B3",
+            "B4",
+            "B5",
+            "B6",
+            "LETTER",
+            "LEGAL",
+            "TABLOID",
+            "LEDGER",
+            "iPadPro13",
+            "iPadPro11",
+            "iPadAir13",
+            "iPad11",
+            "iPadMini",
+            "GalaxyTabS11",
+            "GalaxyTabS11Ultra"
+          ],
+          "description": "%config.paperSize.description%",
+          "enumDescriptions": [
+            "%config.paperSize.enum.0%",
+            "%config.paperSize.enum.1%",
+            "%config.paperSize.enum.2%",
+            "%config.paperSize.enum.3%",
+            "%config.paperSize.enum.4%",
+            "%config.paperSize.enum.5%",
+            "%config.paperSize.enum.6%",
+            "%config.paperSize.enum.7%",
+            "%config.paperSize.enum.8%",
+            "%config.paperSize.enum.9%",
+            "%config.paperSize.enum.10%",
+            "%config.paperSize.enum.11%",
+            "%config.paperSize.enum.12%",
+            "%config.paperSize.enum.13%",
+            "%config.paperSize.enum.14%",
+            "%config.paperSize.enum.15%",
+            "%config.paperSize.enum.16%",
+            "%config.paperSize.enum.17%",
+            "%config.paperSize.enum.18%",
+            "%config.paperSize.enum.19%",
+            "%config.paperSize.enum.20%",
+            "%config.paperSize.enum.21%",
+            "%config.paperSize.enum.22%",
+            "%config.paperSize.enum.23%",
+            "%config.paperSize.enum.24%",
+            "%config.paperSize.enum.25%"
+          ]
+        },
+        "pdf2note.layoutMode": {
+          "type": "string",
+          "default": "note",
+          "enum": [
+            "note",
+            "feedback"
+          ],
+          "enumDescriptions": [
+            "%config.layoutMode.enum.0%",
+            "%config.layoutMode.enum.1%"
+          ],
+          "description": "%config.layoutMode.description%"
+        },
+        "pdf2note.feedbackBannerImage": {
+          "type": "string",
+          "default": "",
+          "description": "%config.feedbackBannerImage.description%"
+        },
+        "pdf2note.lineGap": {
+          "type": "number",
+          "default": 18,
+          "minimum": 6,
+          "maximum": 60,
+          "description": "%config.lineGap.description%"
+        },
+        "pdf2note.headerText": {
+          "type": "string",
+          "default": "{file}",
+          "description": "%config.headerText.description%"
+        },
+        "pdf2note.footerText": {
+          "type": "string",
+          "default": "{page} / {total}",
+          "description": "%config.footerText.description%"
+        },
+        "pdf2note.headerAlign": {
+          "type": "string",
+          "default": "left",
+          "enum": [
+            "left",
+            "center",
+            "right"
+          ],
+          "description": "%config.headerAlign.description%"
+        },
+        "pdf2note.footerAlign": {
+          "type": "string",
+          "default": "right",
+          "enum": [
+            "left",
+            "center",
+            "right"
+          ],
+          "description": "%config.footerAlign.description%"
+        },
+        "pdf2note.headerFooterFontSize": {
+          "type": "number",
+          "default": 10,
+          "minimum": 6,
+          "maximum": 24,
+          "description": "%config.headerFooterFontSize.description%"
+        },
+        "pdf2note.outputDirectory": {
+          "type": "string",
+          "default": "",
+          "description": "%config.outputDirectory.description%"
+        },
+        "pdf2note.outputFileName": {
+          "type": "string",
+          "default": "{name}_note",
+          "description": "%config.outputFileName.description%"
+        },
+        "pdf2note.openAfterConvert": {
+          "type": "boolean",
+          "default": false,
+          "description": "%config.openAfterConvert.description%"
+        },
+        "pdf2note.pdfPassword": {
+          "type": "string",
+          "default": "",
+          "description": "%config.pdfPassword.description%"
+        },
+        "pdf2note.pdfPermissions": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "enum": [
+              "print",
+              "copy",
+              "modify",
+              "annot-forms"
+            ]
+          },
+          "uniqueItems": true,
+          "default": [
+            "annot-forms"
+          ],
+          "description": "%config.pdfPermissions.description%"
+        },
+        "pdf2note.ownerPassword": {
+          "type": "string",
+          "default": "",
+          "description": "%config.ownerPassword.description%"
+        },
+        "pdf2note.teacherMode": {
+          "type": "boolean",
+          "default": false,
+          "description": "%config.teacherMode.description%"
+        }
+      }
+    }
+  },
+  "scripts": {
+    "vscode:prepublish": "npm run typecheck && npm run build",
+    "build": "esbuild src/extension.ts --bundle --outfile=out/extension.js --platform=node --target=node18 --external:vscode --format=cjs --minify",
+    "watch": "esbuild src/extension.ts --bundle --outfile=out/extension.js --platform=node --target=node18 --external:vscode --format=cjs --sourcemap --watch",
+    "typecheck": "tsc -p ./ --noEmit",
+    "lint": "eslint src --ext ts",
+    "package": "vsce package --no-dependencies"
+  },
+  "devDependencies": {
+    "@types/node": "^20.4.2",
+    "@types/vscode": "^1.84.0",
+    "@typescript-eslint/eslint-plugin": "^6.2.1",
+    "@typescript-eslint/parser": "^6.2.1",
+    "@vscode/vsce": "^2.24.0",
+    "esbuild": "^0.20.0",
+    "eslint": "^8.45.0",
+    "typescript": "^5.1.6"
+  },
+  "dependencies": {
+    "@cantoo/fontkit": "^2.0.12",
+    "@cantoo/pdf-lib": "^2.11.1"
+  }
+}
