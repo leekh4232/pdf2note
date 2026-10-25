@@ -25,3 +25,4 @@ out/test/**
 *.ipynb
 pdf2note.py
 media/readme/**
+docs/**
