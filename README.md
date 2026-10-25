@@ -8,12 +8,14 @@
 
 `.ipynb` · `.md`도 바로 됩니다. Ipynb PDF Converter가 메모리에서 먼저 PDF로 바꿔 줍니다.
 
-![Version 0.1.0](https://img.shields.io/badge/version-0.1.0-e08a1e)
+[![Marketplace](https://vsmarketplacebadges.dev/version-short/leekh.pdf2note.svg?label=Marketplace&color=e08a1e)](https://marketplace.visualstudio.com/items?itemName=leekh.pdf2note)
 ![VS Code ^1.84](https://img.shields.io/badge/VS%20Code-%5E1.84-007ACC)
 [![Requires Ipynb PDF Converter ≥ 0.9](https://img.shields.io/badge/requires-Ipynb%20PDF%20Converter%20%E2%89%A5%200.9-3f54b5)](https://marketplace.visualstudio.com/items?itemName=leekh.ipynb-pdf-converter)
 ![Encryption AES-256](https://img.shields.io/badge/encryption-AES--256-2ea44f)
 [![Homepage](https://img.shields.io/badge/%EC%86%8C%EA%B0%9C%20%ED%8E%98%EC%9D%B4%EC%A7%80-pdf2note.hossam.kr-24292f)](https://pdf2note.hossam.kr/)
 [![License MIT](https://img.shields.io/badge/license-MIT-2ea44f)](LICENSE)
+
+🌐 **소개 페이지 · [pdf2note.hossam.kr](https://pdf2note.hossam.kr/)**
 
 </div>
 
