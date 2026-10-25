@@ -1,0 +1,90 @@
+name: Build and Publish
+
+on:
+  push:
+    branches: [main]
+
+jobs:
+  build-and-publish:
+    if: contains(github.event.head_commit.message, 'build')
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Configure git
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+
+      - name: Bump version
+        id: pkg
+        env:
+          COMMIT_MSG: ${{ github.event.head_commit.message }}
+        run: |
+          msg=$(printf '%s' "$COMMIT_MSG" | tr '[:upper:]' '[:lower:]')
+          if echo "$msg" | grep -qw major; then
+            level=major
+          elif echo "$msg" | grep -qw minor; then
+            level=minor
+          else
+            level=patch
+          fi
+          echo "Bumping version ($level) from commit message: $COMMIT_MSG"
+          npm version "$level" --no-git-tag-version
+          echo "name=$(node -p "require('./package.json').name")" >> "$GITHUB_OUTPUT"
+          echo "version=$(node -p "require('./package.json').version")" >> "$GITHUB_OUTPUT"
+
+      - name: Lint
+        run: npm run lint
+
+      - name: Typecheck
+        run: npm run typecheck
+
+      - name: Build bundle
+        run: npm run build
+
+      - name: Package VSIX
+        run: npx --no-install vsce package --no-dependencies --out "${{ steps.pkg.outputs.name }}-${{ steps.pkg.outputs.version }}.vsix"
+
+      - name: Upload VSIX artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: ${{ steps.pkg.outputs.name }}-${{ steps.pkg.outputs.version }}
+          path: "*.vsix"
+          if-no-files-found: error
+
+      - name: Publish to VSCode Marketplace
+        if: ${{ env.VSCE_PAT != '' }}
+        env:
+          VSCE_PAT: ${{ secrets.VSCE_PAT }}
+        run: npx --no-install vsce publish --no-dependencies -p "$VSCE_PAT"
+
+      - name: Commit and tag version bump
+        run: |
+          git add package.json package-lock.json
+          git commit -m "chore: release v${{ steps.pkg.outputs.version }} [skip ci]"
+          git tag "v${{ steps.pkg.outputs.version }}"
+          git push origin HEAD:main
+          git push origin "v${{ steps.pkg.outputs.version }}"
+
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: v${{ steps.pkg.outputs.version }}
+          name: v${{ steps.pkg.outputs.version }}
+          files: "*.vsix"
+          generate_release_notes: true
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
