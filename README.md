@@ -10,7 +10,7 @@
 
 [![Marketplace](https://vsmarketplacebadges.dev/version-short/leekh.pdf2note.svg?label=Marketplace&color=e08a1e)](https://marketplace.visualstudio.com/items?itemName=leekh.pdf2note)
 ![VS Code ^1.84](https://img.shields.io/badge/VS%20Code-%5E1.84-007ACC)
-[![Requires Ipynb PDF Converter ≥ 0.9](https://img.shields.io/badge/requires-Ipynb%20PDF%20Converter%20%E2%89%A5%200.9-3f54b5)](https://marketplace.visualstudio.com/items?itemName=leekh.ipynb-pdf-converter)
+[![Requires Ipynb PDF Converter ≥ 0.10](https://img.shields.io/badge/requires-Ipynb%20PDF%20Converter%20%E2%89%A5%200.10-3f54b5)](https://marketplace.visualstudio.com/items?itemName=leekh.ipynb-pdf-converter)
 ![Encryption AES-256](https://img.shields.io/badge/encryption-AES--256-2ea44f)
 [![Homepage](https://img.shields.io/badge/%EC%86%8C%EA%B0%9C%20%ED%8E%98%EC%9D%B4%EC%A7%80-pdf2note.hossam.kr-24292f)](https://pdf2note.hossam.kr/)
 [![License MIT](https://img.shields.io/badge/license-MIT-2ea44f)](LICENSE)
@@ -33,6 +33,7 @@
 | 📝 **레이아웃 자동** | 가로 원본은 아래에, 세로 원본은 오른쪽에 줄노트. 줄 간격 · 머릿글 크기 · 여백은 페이지 크기에 비례 |
 | 💬 **피드백 모드** | 원본 아래 배너 이미지, 필기 영역을 좌우로 나누는 분리선 |
 | 📐 **용지** | 원본 크기 유지(기본) 또는 A0-A6 · B0-B6 · Letter · Legal · Tabloid · Ledger · 태블릿 7종(iPad · Galaxy Tab) |
+| 📋 **텍스트 그대로** | 원본의 글자를 그대로 유지해서 드래그 복사 · 검색이 됨. `.ipynb` · `.md`도 마찬가지 |
 | 🔤 **한글 파일명** | NanumGothic 내장으로 머릿말 · 꼬릿말에 한글 그대로 |
 | 🔒 **비밀번호** | AES-256 암호화와 열람 권한. 비밀번호 걸린 원본 PDF도 한 번 물어보고 처리 |
 | 🧘 **원본 보존** | 임시 파일 없음, 덮어쓰기 없음(`이름 (1).pdf`), 진행률 알림에서 취소 가능 |
@@ -43,7 +44,7 @@
 ## 설치 · 요구 사항
 
 - VS Code 1.84 이상
-- `.ipynb` · `.md` 입력에는 **Ipynb PDF Converter 0.9 이상**(`convertToPdfBytes` API 포함)이 필요합니다. 의존 확장으로 선언돼 있어 VS Code가 함께 설치하지만, 버전은 직접 확인하세요. PDF 입력은 단독으로 동작합니다.
+- `.ipynb` · `.md` 입력에는 **Ipynb PDF Converter 0.10 이상**이 필요합니다. 의존 확장으로 선언돼 있어 VS Code가 함께 설치하지만, 버전은 직접 확인하세요. PDF 입력은 단독으로 동작합니다.
 
 ## 사용 방법
 

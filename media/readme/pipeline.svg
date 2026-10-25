@@ -42,7 +42,7 @@
   <rect x="136" y="124" width="156" height="72" rx="12" fill="#eef1fb" stroke="#9aa6c2"/>
   <text x="214" y="150" text-anchor="middle" font-size="13" font-weight="700" fill="#3f54b5">Ipynb PDF Converter</text>
   <text x="214" y="168" text-anchor="middle" font-size="11.5" fill="#57606a">API로 메모리에서 PDF 변환</text>
-  <text x="214" y="184" text-anchor="middle" font-size="11.5" fill="#57606a">임시 파일 없음 · 0.9 이상</text>
+  <text x="214" y="184" text-anchor="middle" font-size="11.5" fill="#57606a">임시 파일 없음 · 0.10 이상</text>
 
   <!-- merge into step 1 -->
   <g fill="none" stroke="#8c96a8" stroke-width="1.5">

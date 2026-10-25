@@ -26,3 +26,5 @@ out/test/**
 pdf2note.py
 media/readme/**
 docs/**
+CLAUDE.md
+scripts/darken_svg.py

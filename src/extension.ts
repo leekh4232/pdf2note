@@ -366,12 +366,24 @@ async function converterApi(): Promise<ConverterApi> {
     throw new Error(`The "Ipynb PDF Converter" extension (${CONVERTER_ID}) is required to convert .ipynb/.md files`);
   }
   const api = await extension.activate();
+  // Before 0.10 the converter's pages are images only, so the note PDF has no
+  // text to select or copy. It still works; the log says how to get the text.
+  if (versionBelow(String(extension.packageJSON?.version ?? '0'), [0, 10])) {
+    outputChannel.appendLine(
+      `ℹ️ Ipynb PDF Converter ${extension.packageJSON?.version} makes image-only pages: update it to 0.10+ to select and copy text in the note PDF.`
+    );
+  }
   if (!api || typeof api.convertToPdfBytes !== 'function') {
     throw new Error(
       'Ipynb PDF Converter is too old or not reloaded: it must expose convertToPdfBytes (0.9+). After updating it, run "Developer: Reload Window".'
     );
   }
   return api;
+}
+
+function versionBelow(version: string, minimum: [number, number]): boolean {
+  const [major, minor] = version.split('.').map((n) => parseInt(n, 10) || 0);
+  return major < minimum[0] || (major === minimum[0] && minor < minimum[1]);
 }
 
 async function loadImage(src: string, baseDir: string): Promise<{ bytes: Uint8Array }> {

@@ -1,23 +1,36 @@
-# Changelog
+# 변경 이력
+
+이 프로젝트의 주요 변경 사항을 기록합니다.
+
+형식은 [Keep a Changelog](https://keepachangelog.com/ko/1.1.0/)를, 버전은 [유의적 버전](https://semver.org/lang/ko/)을 따릅니다.
+
+## [미배포]
+
+### 추가
+- **`.ipynb` · `.md` 입력도 텍스트를 선택 · 복사 · 검색할 수 있습니다.** Ipynb PDF Converter 0.10 이상이 만든 PDF의 텍스트 층이 결과 PDF에 그대로 남습니다. `.pdf` 입력은 원본에 있던 텍스트를 그대로 유지합니다.
+- 설치된 Ipynb PDF Converter가 0.10보다 낮으면, 텍스트를 쓰려면 업데이트하라는 안내를 출력 창에 남깁니다.
+
+### 변경
+- `.ipynb` · `.md` 입력의 요구 버전을 Ipynb PDF Converter **0.10 이상**으로 안내합니다.
 
 ## [0.1.2] - 2026-10-26
 
-### Changed
-- README links to the intro site under the badges; the version badge now reads the Marketplace.
+### 변경
+- README 배지 아래에 소개 페이지 링크를 넣고, 버전 배지가 Marketplace 버전을 읽도록 바꿨습니다.
 
 ## [0.1.1] - 2026-10-26
 
-### Changed
-- Homepage moved to the intro site https://pdf2note.hossam.kr/.
+### 변경
+- 홈페이지 주소를 소개 페이지 https://pdf2note.hossam.kr/ 로 옮겼습니다.
 
 ## [0.1.0] - 2026-10-25
 
-### Added
-- Tablet paper sizes (iPad Pro/Air/mini, Galaxy Tab S11 / S11 Ultra·S12 Ultra), the same pages Ipynb PDF Converter produces for those devices.
-- Password-protected source PDFs: owner-only protection opens silently; a user password is asked for once (wrong password and unreadable or empty PDFs fail with a clear message).
-- First release: a port of `pdf2note.py` as a VSCode extension.
-- Commands on `.pdf`, `.ipynb` and `.md` files (explorer, editor tab, editor body, notebook cell, palette): add a ruled note area and header/footer bands; with or without a password.
-- `.ipynb`/`.md` inputs are rendered in memory by the Ipynb PDF Converter extension's API (no temp files).
-- Layout rules of the script: landscape sources get the note area below with a border, portrait sources to the right; `/Rotate` pages laid out as displayed; feedback mode (banner + divider); named paper sizes or original size; dimensions scaled with the page.
-- Header/footer with `{file}` `{date}` `{page}` `{total}`, alignment and size, Korean text via a bundled NanumGothic (subset-embedded).
-- AES-256 password protection with permissions and owner password (empty owner password = the PDF password), teacher mode marks (hossam/jussam), progress notification with cancel, never-overwrite naming `name (1).pdf`, Korean/English UI strings.
+### 추가
+- 첫 배포: `pdf2note.py`를 VS Code 확장으로 옮겼습니다.
+- `.pdf` · `.ipynb` · `.md` 파일에서 실행하는 명령(탐색기, 편집기 탭, 편집기 본문, 노트북 셀, 명령 팔레트): 줄노트 필기 영역과 머릿말 · 꼬릿말 띠를 붙입니다. 비밀번호 유무별로 있습니다.
+- `.ipynb` · `.md` 입력은 Ipynb PDF Converter 확장의 API로 메모리에서 렌더링합니다(임시 파일 없음).
+- 스크립트와 같은 배치 규칙: 가로 원본은 아래에 필기 영역과 원본 테두리, 세로 원본은 오른쪽에 필기 영역. `/Rotate` 페이지는 화면에 보이는 방향대로. 피드백 모드(배너 + 분리선). 용지 이름 또는 원본 크기. 크기 요소는 페이지에 비례.
+- 태블릿 용지(iPad Pro/Air/mini, Galaxy Tab S11 / S11 Ultra · S12 Ultra): Ipynb PDF Converter가 같은 기기에 만드는 페이지와 같습니다.
+- 비밀번호가 걸린 원본 PDF: 소유자 비밀번호만 걸린 파일은 그냥 열고, 열람 비밀번호는 한 번 묻습니다. 비밀번호가 틀리거나 읽을 수 없는 · 빈 PDF는 분명한 메시지와 함께 실패합니다.
+- `{file}` `{date}` `{page}` `{total}`을 쓰는 머릿말 · 꼬릿말, 정렬과 크기. 한글은 내장 NanumGothic(쓰인 글자만 포함)으로 씁니다.
+- AES-256 비밀번호 보호와 권한, 소유자 비밀번호(비우면 PDF 비밀번호와 같음), teacher mode 강사 마크(hossam/jussam), 취소 가능한 진행률 알림, 덮어쓰지 않는 이름 `이름 (1).pdf`, 한글/영어 UI.
