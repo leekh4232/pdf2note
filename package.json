@@ -2,7 +2,7 @@
   "name": "pdf2note",
   "displayName": "PDF2Note",
   "description": "%description%",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "publisher": "leekh",
   "repository": {
     "type": "git",
