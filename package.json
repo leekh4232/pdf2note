@@ -59,133 +59,39 @@
         "category": "PDF2Note"
       }
     ],
+    "submenus": [
+      {
+        "id": "pdf2note.submenu",
+        "label": "%submenu.label%"
+      }
+    ],
     "menus": {
       "explorer/context": [
         {
-          "command": "pdf2note.addNotes",
+          "submenu": "pdf2note.submenu",
           "when": "resourceExtname == .pdf || resourceExtname == .ipynb || resourceExtname == .md",
           "group": "navigation@90"
-        },
-        {
-          "command": "pdf2note.addNotesWithPassword",
-          "when": "resourceExtname == .pdf || resourceExtname == .ipynb || resourceExtname == .md",
-          "group": "navigation@91"
-        },
-        {
-          "command": "pdf2note.addNotesHossam",
-          "when": "(resourceExtname == .pdf || resourceExtname == .ipynb || resourceExtname == .md) && config.pdf2note.teacherMode",
-          "group": "navigation@92"
-        },
-        {
-          "command": "pdf2note.addNotesHossamWithPassword",
-          "when": "(resourceExtname == .pdf || resourceExtname == .ipynb || resourceExtname == .md) && config.pdf2note.teacherMode",
-          "group": "navigation@93"
-        },
-        {
-          "command": "pdf2note.addNotesJussam",
-          "when": "(resourceExtname == .pdf || resourceExtname == .ipynb || resourceExtname == .md) && config.pdf2note.teacherMode",
-          "group": "navigation@94"
-        },
-        {
-          "command": "pdf2note.addNotesJussamWithPassword",
-          "when": "(resourceExtname == .pdf || resourceExtname == .ipynb || resourceExtname == .md) && config.pdf2note.teacherMode",
-          "group": "navigation@95"
         }
       ],
       "editor/title/context": [
         {
-          "command": "pdf2note.addNotes",
+          "submenu": "pdf2note.submenu",
           "when": "resourceExtname == .pdf || resourceExtname == .ipynb || resourceExtname == .md",
           "group": "navigation@90"
-        },
-        {
-          "command": "pdf2note.addNotesWithPassword",
-          "when": "resourceExtname == .pdf || resourceExtname == .ipynb || resourceExtname == .md",
-          "group": "navigation@91"
-        },
-        {
-          "command": "pdf2note.addNotesHossam",
-          "when": "(resourceExtname == .pdf || resourceExtname == .ipynb || resourceExtname == .md) && config.pdf2note.teacherMode",
-          "group": "navigation@92"
-        },
-        {
-          "command": "pdf2note.addNotesHossamWithPassword",
-          "when": "(resourceExtname == .pdf || resourceExtname == .ipynb || resourceExtname == .md) && config.pdf2note.teacherMode",
-          "group": "navigation@93"
-        },
-        {
-          "command": "pdf2note.addNotesJussam",
-          "when": "(resourceExtname == .pdf || resourceExtname == .ipynb || resourceExtname == .md) && config.pdf2note.teacherMode",
-          "group": "navigation@94"
-        },
-        {
-          "command": "pdf2note.addNotesJussamWithPassword",
-          "when": "(resourceExtname == .pdf || resourceExtname == .ipynb || resourceExtname == .md) && config.pdf2note.teacherMode",
-          "group": "navigation@95"
         }
       ],
       "editor/context": [
         {
-          "command": "pdf2note.addNotes",
+          "submenu": "pdf2note.submenu",
           "when": "resourceExtname == .pdf || resourceExtname == .ipynb || resourceExtname == .md",
           "group": "navigation@90"
-        },
-        {
-          "command": "pdf2note.addNotesWithPassword",
-          "when": "resourceExtname == .pdf || resourceExtname == .ipynb || resourceExtname == .md",
-          "group": "navigation@91"
-        },
-        {
-          "command": "pdf2note.addNotesHossam",
-          "when": "(resourceExtname == .pdf || resourceExtname == .ipynb || resourceExtname == .md) && config.pdf2note.teacherMode",
-          "group": "navigation@92"
-        },
-        {
-          "command": "pdf2note.addNotesHossamWithPassword",
-          "when": "(resourceExtname == .pdf || resourceExtname == .ipynb || resourceExtname == .md) && config.pdf2note.teacherMode",
-          "group": "navigation@93"
-        },
-        {
-          "command": "pdf2note.addNotesJussam",
-          "when": "(resourceExtname == .pdf || resourceExtname == .ipynb || resourceExtname == .md) && config.pdf2note.teacherMode",
-          "group": "navigation@94"
-        },
-        {
-          "command": "pdf2note.addNotesJussamWithPassword",
-          "when": "(resourceExtname == .pdf || resourceExtname == .ipynb || resourceExtname == .md) && config.pdf2note.teacherMode",
-          "group": "navigation@95"
         }
       ],
       "notebook/cell/title": [
         {
-          "command": "pdf2note.addNotes",
+          "submenu": "pdf2note.submenu",
           "when": "notebookType == jupyter-notebook",
           "group": "z_note@90"
-        },
-        {
-          "command": "pdf2note.addNotesWithPassword",
-          "when": "notebookType == jupyter-notebook",
-          "group": "z_note@91"
-        },
-        {
-          "command": "pdf2note.addNotesHossam",
-          "when": "notebookType == jupyter-notebook && config.pdf2note.teacherMode",
-          "group": "z_note@92"
-        },
-        {
-          "command": "pdf2note.addNotesHossamWithPassword",
-          "when": "notebookType == jupyter-notebook && config.pdf2note.teacherMode",
-          "group": "z_note@93"
-        },
-        {
-          "command": "pdf2note.addNotesJussam",
-          "when": "notebookType == jupyter-notebook && config.pdf2note.teacherMode",
-          "group": "z_note@94"
-        },
-        {
-          "command": "pdf2note.addNotesJussamWithPassword",
-          "when": "notebookType == jupyter-notebook && config.pdf2note.teacherMode",
-          "group": "z_note@95"
         }
       ],
       "commandPalette": [
@@ -212,6 +118,38 @@
         {
           "command": "pdf2note.addNotesJussamWithPassword",
           "when": "(resourceExtname == .pdf || resourceExtname == .ipynb || resourceExtname == .md) && config.pdf2note.teacherMode"
+        }
+      ],
+      "pdf2note.submenu": [
+        {
+          "command": "pdf2note.addNotes",
+          "when": "resourceExtname == .pdf || resourceExtname == .ipynb || resourceExtname == .md",
+          "group": "1_default@0"
+        },
+        {
+          "command": "pdf2note.addNotesWithPassword",
+          "when": "resourceExtname == .pdf || resourceExtname == .ipynb || resourceExtname == .md",
+          "group": "1_default@1"
+        },
+        {
+          "command": "pdf2note.addNotesHossam",
+          "when": "(resourceExtname == .pdf || resourceExtname == .ipynb || resourceExtname == .md) && config.pdf2note.teacherMode",
+          "group": "2_teacher@2"
+        },
+        {
+          "command": "pdf2note.addNotesHossamWithPassword",
+          "when": "(resourceExtname == .pdf || resourceExtname == .ipynb || resourceExtname == .md) && config.pdf2note.teacherMode",
+          "group": "2_teacher@3"
+        },
+        {
+          "command": "pdf2note.addNotesJussam",
+          "when": "(resourceExtname == .pdf || resourceExtname == .ipynb || resourceExtname == .md) && config.pdf2note.teacherMode",
+          "group": "2_teacher@4"
+        },
+        {
+          "command": "pdf2note.addNotesJussamWithPassword",
+          "when": "(resourceExtname == .pdf || resourceExtname == .ipynb || resourceExtname == .md) && config.pdf2note.teacherMode",
+          "group": "2_teacher@5"
         }
       ]
     },
