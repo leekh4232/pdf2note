@@ -22,6 +22,7 @@ VS Code 확장 **PDF2Note**(`leekh.pdf2note`) 저장소입니다. PDF 페이지�
 |:--|:--|
 | `README.md` | Marketplace와 GitHub에 보이는 설명. 배지, 한눈에 보기 표, 레이아웃 그림, 사용 방법, 설정 표, 요구 사항 |
 | `docs/index.html` | GitHub Pages 소개 페이지 https://pdf2note.hossam.kr (`docs/CNAME`). 다크 테마, 짧게 |
+| `docs/llms.txt` · `docs/robots.txt` · `docs/sitemap.xml` | AI · 크롤러용. `llms.txt`는 사이트 요약(마크다운)과 문서 링크. 각 html `<head>`에는 JSON-LD 구조화 데이터와 `llms.txt` 링크가 있습니다 |
 | `docs/assets/` | 소개 페이지 그림. README 그림의 다크 버전과 `icon.png` |
 | `media/readme/*.svg` → `*.png` | README 그림 원본과 렌더링 결과 |
 | `package.nls.json` · `package.nls.ko.json` | 명령 이름과 설정 설명(영어 · 한글) |
@@ -38,6 +39,7 @@ python3 scripts/darken_svg.py media/readme/layout.svg /tmp/layout-dark.svg
 rsvg-convert -z 2 /tmp/layout-dark.svg -o docs/assets/layout.png
 ```
 
+- 기능 · 명령 · 메뉴 · 요구 버전이 바뀌면 `docs/llms.txt`의 요약과 html `<head>`의 JSON-LD(`description` · `softwareRequirements`)도 맞춥니다. 페이지를 더하거나 빼면 `docs/sitemap.xml`도 고칩니다.
 - 바꾼 뒤 예전 표현이 남았는지 검색합니다 (예: 제거한 설정 이름, 옛 버전 번호).
 - `docs/**`와 `media/readme/**`는 `.vscodeignore`로 VSIX에서 빠집니다. 새 문서용 폴더를 만들면 거기에도 추가합니다.
 
