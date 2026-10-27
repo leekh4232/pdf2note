@@ -4,6 +4,11 @@
 
 형식은 [Keep a Changelog](https://keepachangelog.com/ko/1.1.0/)를, 버전은 [유의적 버전](https://semver.org/lang/ko/)을 따릅니다.
 
+## [미배포]
+
+### 변경
+- 우클릭 하위 메뉴 이름을 Ipynb PDF Converter처럼 동작만 나타내도록 **필기 영역 추가**(Add Note Area)로 줄였습니다. 이전 이름은 PDF2Note 필기 영역 추가(PDF2Note: Add Note Area)였습니다.
+
 ## [0.2.1] - 2026-10-27
 
 ### 변경
