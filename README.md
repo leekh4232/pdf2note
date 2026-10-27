@@ -49,13 +49,13 @@
 ## 사용 방법
 
 1. `.pdf` · `.ipynb` · `.md` 파일을 **우클릭**합니다.
-2. **필기 영역 추가**(Add Note Area) 메뉴에서 명령을 고릅니다.
+2. **필기 영역 추가**(Add Note Area) 하위 메뉴에서 항목을 고릅니다. 명령 팔레트에서는 `필기 영역 추가 (PDF)`처럼 앞에 "필기 영역 추가"가 붙은 이름으로 찾습니다.
 
    | 한국어 UI | English UI | 하는 일 |
    |:--|:--|:--|
-   | 필기 영역 추가 (PDF) | Add Note Area (PDF) | 비밀번호 없이 |
-   | 필기 영역 추가 (PDF, 비밀번호) | Add Note Area (PDF, with Password) | 설정의 기본 비밀번호로 암호화. 비어 있으면 팝업으로 입력 |
-   | 필기 영역 추가 (hossam) · (jussam) | Add Note Area (hossam) · (jussam) | `teacherMode`를 켜면 추가. 강사 마크를 넣음(비밀번호 유무 각각) |
+   | PDF | PDF | 비밀번호 없이 |
+   | PDF, 비밀번호 | PDF, with Password | 설정의 기본 비밀번호로 암호화. 비어 있으면 팝업으로 입력 |
+   | hossam · jussam (각각 비밀번호 유무) | hossam · jussam (each with/without Password) | `teacherMode`를 켜면 구분선 아래에 추가. 강사 마크를 넣음 |
 
 3. 같은 폴더에 `원본이름_note.pdf`가 생깁니다. 같은 이름이 있으면 `이름 (1).pdf`처럼 번호를 붙입니다.
 

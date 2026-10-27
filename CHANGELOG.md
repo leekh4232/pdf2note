@@ -4,6 +4,11 @@
 
 형식은 [Keep a Changelog](https://keepachangelog.com/ko/1.1.0/)를, 버전은 [유의적 버전](https://semver.org/lang/ko/)을 따릅니다.
 
+## [0.2.3] - 2026-10-27
+
+### 변경
+- 우클릭 **필기 영역 추가** 하위 메뉴의 항목 이름에서 반복되던 "필기 영역 추가"를 뺐습니다. 이제 **PDF** · **PDF, 비밀번호**로 보이고, `teacherMode`를 켜면 **hossam** · **hossam, 비밀번호** · **jussam** · **jussam, 비밀번호**가 함께 보입니다(영어 UI는 `with Password`). 명령 팔레트의 이름은 그대로입니다.
+
 ## [0.2.2] - 2026-10-27
 
 ### 변경

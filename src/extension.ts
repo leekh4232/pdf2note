@@ -126,7 +126,10 @@ const COMMANDS: { id: string; withPassword: boolean; mark?: Mark }[] = [
 
 export function activate(context: vscode.ExtensionContext) {
   outputChannel = vscode.window.createOutputChannel('PDF2Note');
-  for (const { id, withPassword, mark } of COMMANDS) {
+  // Each command also has a pdf2note.menu.* twin with a short title for the
+  // context submenu, whose label already says "Add Note Area".
+  const entries = COMMANDS.flatMap((c) => [c, { ...c, id: c.id.replace('pdf2note.', 'pdf2note.menu.') }]);
+  for (const { id, withPassword, mark } of entries) {
     context.subscriptions.push(
       vscode.commands.registerCommand(id, async (arg?: unknown) => {
         // Explorer/editor menus pass the file Uri; notebook cell menus pass a
