@@ -18,6 +18,15 @@ const HEADER_HEIGHT_RATIO = 1.5; // band height = font size × ratio
 const HEADER_PAD_X_RATIO = 24 / 18;
 const FEEDBACK_GAP = 14;
 const DIVIDER_COLOR = rgb(0.75, 0.75, 0.75);
+
+// Message translator; extension.ts installs vscode.l10n.t. The default fills
+// {0}, {1}, … so the module still works from plain Node.
+type Translate = (message: string, ...args: (string | number)[]) => string;
+let t: Translate = (message, ...args) =>
+  message.replace(/\{(\d+)\}/g, (whole, i: string) => (Number(i) < args.length ? String(args[Number(i)]) : whole));
+export function setTranslator(translate: Translate): void {
+  t = translate;
+}
 const DIVIDER_WIDTH = 0.7;
 
 const MM = 72 / 25.4;
@@ -111,17 +120,17 @@ export async function loadSource(input: Uint8Array, password?: string): Promise<
     } else if (encrypted || /password/i.test(message)) {
       throw new WrongPasswordError();
     } else {
-      throw new Error(`Not a readable PDF (${message})`);
+      throw new Error(t('Not a readable PDF ({0})', message));
     }
   }
   let pageCount: number;
   try {
     pageCount = doc.getPageCount(); // a truncated file parses but has no page tree
   } catch (error) {
-    throw new Error(`Not a readable PDF (${error instanceof Error ? error.message : String(error)})`);
+    throw new Error(t('Not a readable PDF ({0})', error instanceof Error ? error.message : String(error)));
   }
   if (pageCount === 0) {
-    throw new Error('The PDF has no pages');
+    throw new Error(t('The PDF has no pages'));
   }
   return doc;
 }
@@ -131,8 +140,8 @@ export async function addNoteArea(src: PDFDocument, options: NoteOptions): Promi
   const out = await PDFDocument.create();
   out.registerFontkit(fontkit);
   const font = await out.embedFont(options.fontBytes, { subset: true });
-  const banner = options.banner ? await embedImage(out, options.banner.bytes, warnings, 'banner') : null;
-  const mark = options.mark ? await embedImage(out, options.mark.bytes, warnings, 'mark') : null;
+  const banner = options.banner ? await embedImage(out, options.banner.bytes, warnings, t('Feedback banner')) : null;
+  const mark = options.mark ? await embedImage(out, options.mark.bytes, warnings, t('Instructor mark')) : null;
   const total = src.getPageCount();
 
   for (let i = 0; i < total; i++) {
@@ -145,7 +154,7 @@ export async function addNoteArea(src: PDFDocument, options: NoteOptions): Promi
       try {
         embedded = await out.embedPage(srcPage);
       } catch (error) {
-        throw new Error(`Page ${i + 1} cannot be embedded (${error instanceof Error ? error.message : String(error)})`);
+        throw new Error(t('Page {0} cannot be embedded ({1})', i + 1, error instanceof Error ? error.message : String(error)));
       }
     }
     buildNotePage(out, srcPage, embedded, i + 1, total, { font, banner, mark }, options);
@@ -226,7 +235,7 @@ function buildNotePage(
       ? fitScale(w, h, bodyW - margin * 2, (bodyH - margin * 2) / 2)
       : fitScale(w, h, (bodyW - margin * 2) / 2, bodyH - margin * 2);
     if (fit <= 0) {
-      throw new Error(`Paper too small for the original: ${pageW.toFixed(0)}x${pageH.toFixed(0)} pt`);
+      throw new Error(t('Paper too small for the original: {0}x{1} pt', pageW.toFixed(0), pageH.toFixed(0)));
     }
   }
 
@@ -360,7 +369,7 @@ async function embedImage(doc: PDFDocument, bytes: Uint8Array, warnings: string[
   try {
     if (bytes[0] === 0xff && bytes[1] === 0xd8) return await doc.embedJpg(bytes);
     if (bytes[0] === 0x89 && bytes[1] === 0x50) return await doc.embedPng(bytes);
-    warnings.push(`${what}: not a PNG or JPEG image`);
+    warnings.push(t('{0}: not a PNG or JPEG image', what));
   } catch (error) {
     warnings.push(`${what}: ${error instanceof Error ? error.message : String(error)}`);
   }
