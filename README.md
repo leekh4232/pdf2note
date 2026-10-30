@@ -23,8 +23,6 @@
 
 ![입력부터 저장까지: PDF는 바로, ipynb와 md는 Ipynb PDF Converter를 거쳐 pdf-lib로 페이지를 재구성](media/readme/pipeline.png)
 
-> 아이티윌 이광호 강사의 수업용으로 만들었습니다. `pdf2note.py`를 VS Code 확장으로 옮긴 것입니다.
-
 ## 한눈에 보기
 
 | | |
