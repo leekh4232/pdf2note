@@ -1,5 +1,5 @@
 {
-  "submenu.label": "PDF2Note 필기 영역 추가",
+  "submenu.label": "필기 영역 추가",
   "description": "PDF 페이지에 줄노트 필기 영역과 머릿글을 붙입니다(.ipynb/.md는 Ipynb PDF Converter로 먼저 변환). 비밀번호 보호, teacher mode 지원.",
   "config.title": "PDF2Note",
   "cmd.addNotes.title": "필기 영역 추가 (PDF)",

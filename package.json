@@ -2,7 +2,7 @@
   "name": "pdf2note",
   "displayName": "PDF2Note",
   "description": "%description%",
-  "version": "0.2.1",
+  "version": "0.2.3",
   "publisher": "leekh",
   "repository": {
     "type": "git",
@@ -23,6 +23,7 @@
   ],
   "activationEvents": [],
   "main": "./out/extension.js",
+  "l10n": "./l10n",
   "extensionDependencies": [
     "leekh.ipynb-pdf-converter"
   ],

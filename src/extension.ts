@@ -2,7 +2,7 @@ import * as vscode from 'vscode';
 import * as path from 'path';
 import { promises as fs } from 'fs';
 import { fileURLToPath } from 'url';
-import { addNoteArea, loadSource, permissionFlags, resolvePaper, Align, PAPER_SIZES, SourceEncryptedError, WrongPasswordError } from './note';
+import { addNoteArea, loadSource, permissionFlags, resolvePaper, setTranslator, Align, PAPER_SIZES, SourceEncryptedError, WrongPasswordError } from './note';
 import type { PDFDocument } from '@cantoo/pdf-lib';
 
 const CONVERTER_ID = 'leekh.ipynb-pdf-converter';
@@ -126,6 +126,8 @@ const COMMANDS: { id: string; withPassword: boolean; mark?: Mark }[] = [
 
 export function activate(context: vscode.ExtensionContext) {
   outputChannel = vscode.window.createOutputChannel('PDF2Note');
+  // UI strings follow the VS Code display language (l10n/bundle.l10n.*.json).
+  setTranslator(vscode.l10n.t);
   for (const { id, withPassword, mark } of COMMANDS) {
     context.subscriptions.push(
       vscode.commands.registerCommand(id, async (arg?: unknown) => {
@@ -133,7 +135,7 @@ export function activate(context: vscode.ExtensionContext) {
         // cell context instead, so fall back to the active tab's file.
         const target = arg instanceof vscode.Uri ? arg : resolveActiveUri();
         if (!target || !SUPPORTED.includes(path.extname(target.fsPath).toLowerCase())) {
-          vscode.window.showErrorMessage('Please select a .pdf, .ipynb or .md file');
+          vscode.window.showErrorMessage(vscode.l10n.t('Please select a .pdf, .ipynb or .md file'));
           return;
         }
         const password = withPassword ? await resolvePassword() : undefined;
@@ -158,11 +160,11 @@ async function resolvePassword(): Promise<string | undefined> {
     return configured;
   }
   return vscode.window.showInputBox({
-    title: 'PDF Password',
-    prompt: 'No default password is set (pdf2note.pdfPassword). Enter a password for this PDF.',
+    title: vscode.l10n.t('PDF Password'),
+    prompt: vscode.l10n.t('No default password is set (pdf2note.pdfPassword). Enter a password for this PDF.'),
     password: true,
     ignoreFocusOut: true,
-    validateInput: (value) => (value ? undefined : 'Password cannot be empty'),
+    validateInput: (value) => (value ? undefined : vscode.l10n.t('Password cannot be empty')),
   });
 }
 
@@ -175,9 +177,9 @@ async function run(
   const fileName = path.basename(filePath);
   const settings = readSettings(vscode.workspace.getConfiguration('pdf2note'));
   outputChannel.clear();
-  outputChannel.appendLine(`📝 ${fileName} → note PDF`);
+  outputChannel.appendLine(`📝 ${vscode.l10n.t('{0} → note PDF', fileName)}`);
   await vscode.window.withProgress(
-    { location: vscode.ProgressLocation.Notification, title: `Adding note area to ${fileName}`, cancellable: true },
+    { location: vscode.ProgressLocation.Notification, title: vscode.l10n.t('Adding note area to {0}', fileName), cancellable: true },
     async (progress, token) => {
       let reached = 0;
       const report = (message: string, fraction: number) => {
@@ -189,15 +191,16 @@ async function run(
         await addNotesToFile(context, filePath, password, mark, settings, token, report);
       } catch (error) {
         if (token.isCancellationRequested || error instanceof CancelledError) {
-          outputChannel.appendLine('⏹ Cancelled');
-          vscode.window.showInformationMessage(`Cancelled: ${fileName}`);
+          outputChannel.appendLine(`⏹ ${vscode.l10n.t('Cancelled')}`);
+          vscode.window.showInformationMessage(vscode.l10n.t('Cancelled: {0}', fileName));
           return;
         }
         const message = error instanceof Error ? error.message : String(error);
-        outputChannel.appendLine(`❌ Error: ${message}`);
+        outputChannel.appendLine(`❌ ${vscode.l10n.t('Error: {0}', message)}`);
         // Not awaited: the progress notification must close with this callback.
-        vscode.window.showErrorMessage(`PDF2Note failed: ${message}`, 'Show Log').then((choice) => {
-          if (choice === 'Show Log') outputChannel.show();
+        const showLog = vscode.l10n.t('Show Log');
+        vscode.window.showErrorMessage(vscode.l10n.t('PDF2Note failed: {0}', message), showLog).then((choice) => {
+          if (choice === showLog) outputChannel.show();
         });
       }
     }
@@ -228,11 +231,11 @@ async function addNotesToFile(
   //    because this extension draws them on the new, larger page.
   let input: Uint8Array;
   if (ext === '.pdf') {
-    report('Reading PDF…', 0.05);
+    report(vscode.l10n.t('Reading PDF…'), 0.05);
     input = new Uint8Array(await fs.readFile(filePath));
   } else {
     const converter = await converterApi();
-    report('Converting to PDF…', 0.02);
+    report(vscode.l10n.t('Converting to PDF…'), 0.02);
     input = await converter.convertToPdfBytes({
       filePath,
       overrides: { headerText: '', footerText: '' },
@@ -249,34 +252,39 @@ async function addNotesToFile(
     settings.layoutMode === 'feedback'
       ? settings.feedbackBannerImage
         ? await loadImage(settings.feedbackBannerImage, sourceDir).catch((error) => {
-            warn(`Feedback banner not loaded (${settings.feedbackBannerImage}): ${messageOf(error)}`);
+            warn(vscode.l10n.t('Feedback banner not loaded ({0}): {1}', settings.feedbackBannerImage, messageOf(error)));
             return null;
           })
-        : (warn('Feedback mode: no banner configured (pdf2note.feedbackBannerImage); drawing the divider only'), null)
+        : (warn(vscode.l10n.t('Feedback mode: no banner configured (pdf2note.feedbackBannerImage); drawing the divider only')), null)
       : null;
   const markImage = mark
     ? await loadImage(MARK_IMAGES[mark], sourceDir).catch((error) => {
-        warn(`Instructor mark not loaded (${MARK_IMAGES[mark]}): ${messageOf(error)}`);
+        warn(vscode.l10n.t('Instructor mark not loaded ({0}): {1}', MARK_IMAGES[mark], messageOf(error)));
         return null;
       })
     : null;
   if (mark && markImage) {
-    outputChannel.appendLine(`🖼️ Teacher mode: ${mark === 'ho' ? 'hossam' : 'jussam'} mark on every page`);
+    outputChannel.appendLine(`🖼️ ${vscode.l10n.t('Teacher mode: {0} mark on every page', mark === 'ho' ? 'hossam' : 'jussam')}`);
   }
   if (!fontCache) {
     const fontPath = context.asAbsolutePath(path.join('media', 'fonts', 'NanumGothic.ttf'));
     try {
       fontCache = new Uint8Array(await fs.readFile(fontPath));
     } catch {
-      throw new Error('Bundled font missing (media/fonts/NanumGothic.ttf). Reinstall the PDF2Note extension.');
+      throw new Error(vscode.l10n.t('Bundled font missing (media/fonts/NanumGothic.ttf). Reinstall the PDF2Note extension.'));
     }
   }
 
   // 3. Layout.
-  report('Adding note areas…', base);
+  report(vscode.l10n.t('Adding note areas…'), base);
   const paper = resolvePaper(settings.paperSize);
   outputChannel.appendLine(
-    `Layout: ${settings.layoutMode}, paper ${paper ? settings.paperSize.toUpperCase() : 'original size'}, line gap ${settings.lineGap} pt`
+    vscode.l10n.t(
+      'Layout: {0}, paper {1}, line gap {2} pt',
+      settings.layoutMode,
+      paper ? settings.paperSize.toUpperCase() : vscode.l10n.t('original size'),
+      settings.lineGap
+    )
   );
   const { doc, pages, warnings: layoutWarnings } = await addNoteArea(src, {
     vars: { file: vars.file, date: vars.date },
@@ -292,7 +300,7 @@ async function addNotesToFile(
     markWidth: MARK_WIDTH,
     onProgress: (done, total) => {
       if (token.isCancellationRequested) throw new CancelledError();
-      report(`Adding note areas… (${done}/${total})`, base + (done / total) * (0.9 - base));
+      report(vscode.l10n.t('Adding note areas… ({0}/{1})', done, total), base + (done / total) * (0.9 - base));
     },
   });
   layoutWarnings.forEach(warn);
@@ -309,23 +317,32 @@ async function addNotesToFile(
   }
 
   // 5. Save without overwriting: "name (1).pdf", "name (2).pdf", …
-  report('Saving…', 0.95);
+  report(vscode.l10n.t('Saving…'), 0.95);
   const bytes = await doc.save();
   const outputDir = settings.outputDirectory ? path.resolve(sourceDir, settings.outputDirectory) : sourceDir;
   const outputName = (expand(settings.outputFileName, vars) || `${baseName}_note`).replace(/\.pdf$/i, '');
   await fs.mkdir(outputDir, { recursive: true });
   const outputPath = await uniquePdfPath(outputDir, outputName);
   await fs.writeFile(outputPath, bytes);
-  report('Done', 1);
-  outputChannel.appendLine(`✅ Saved: ${outputPath} (${pages} page${pages === 1 ? '' : 's'})`);
+  report(vscode.l10n.t('Done'), 1);
+  outputChannel.appendLine(
+    `✅ ${pages === 1 ? vscode.l10n.t('Saved: {0} (1 page)', outputPath) : vscode.l10n.t('Saved: {0} ({1} pages)', outputPath, pages)}`
+  );
 
-  const summary = `✅ Note PDF${password ? ' (password protected)' : ''}: ${path.basename(outputPath)}`;
+  const savedName = path.basename(outputPath);
+  const summary = `✅ ${password ? vscode.l10n.t('Note PDF (password protected): {0}', savedName) : vscode.l10n.t('Note PDF: {0}', savedName)}`;
   // Not awaited: the progress notification must close when this function returns.
+  const showLog = vscode.l10n.t('Show Log');
   if (warnings.length > 0) {
     vscode.window
-      .showWarningMessage(`${summary} — ${warnings.length} warning${warnings.length === 1 ? '' : 's'}`, 'Show Log')
+      .showWarningMessage(
+        warnings.length === 1
+          ? vscode.l10n.t('{0} — 1 warning', summary)
+          : vscode.l10n.t('{0} — {1} warnings', summary, warnings.length),
+        showLog
+      )
       .then((choice) => {
-        if (choice === 'Show Log') outputChannel.show();
+        if (choice === showLog) outputChannel.show();
       });
   } else {
     vscode.window.showInformationMessage(summary);
@@ -345,8 +362,8 @@ async function openSource(input: Uint8Array, fileName: string): Promise<PDFDocum
     }
   }
   const password = await vscode.window.showInputBox({
-    title: 'Source PDF password',
-    prompt: `"${fileName}" is password protected. Enter its password to open it.`,
+    title: vscode.l10n.t('Source PDF password'),
+    prompt: vscode.l10n.t('"{0}" is password protected. Enter its password to open it.', fileName),
     password: true,
     ignoreFocusOut: true,
   });
@@ -356,26 +373,31 @@ async function openSource(input: Uint8Array, fileName: string): Promise<PDFDocum
   try {
     return await loadSource(input, password);
   } catch (error) {
-    throw error instanceof WrongPasswordError ? new Error(`Wrong password for "${fileName}"`) : error;
+    throw error instanceof WrongPasswordError ? new Error(vscode.l10n.t('Wrong password for "{0}"', fileName)) : error;
   }
 }
 
 async function converterApi(): Promise<ConverterApi> {
   const extension = vscode.extensions.getExtension<ConverterApi>(CONVERTER_ID);
   if (!extension) {
-    throw new Error(`The "Ipynb PDF Converter" extension (${CONVERTER_ID}) is required to convert .ipynb/.md files`);
+    throw new Error(vscode.l10n.t('The "Ipynb PDF Converter" extension ({0}) is required to convert .ipynb/.md files', CONVERTER_ID));
   }
   const api = await extension.activate();
   // Before 0.10 the converter's pages are images only, so the note PDF has no
   // text to select or copy. It still works; the log says how to get the text.
   if (versionBelow(String(extension.packageJSON?.version ?? '0'), [0, 10])) {
     outputChannel.appendLine(
-      `ℹ️ Ipynb PDF Converter ${extension.packageJSON?.version} makes image-only pages: update it to 0.10+ to select and copy text in the note PDF.`
+      `ℹ️ ${vscode.l10n.t(
+        'Ipynb PDF Converter {0} makes image-only pages: update it to 0.10+ to select and copy text in the note PDF.',
+        String(extension.packageJSON?.version)
+      )}`
     );
   }
   if (!api || typeof api.convertToPdfBytes !== 'function') {
     throw new Error(
-      'Ipynb PDF Converter is too old or not reloaded: it must expose convertToPdfBytes (0.9+). After updating it, run "Developer: Reload Window".'
+      vscode.l10n.t(
+        'Ipynb PDF Converter is too old or not reloaded: it must expose convertToPdfBytes (0.9+). After updating it, run "Developer: Reload Window".'
+      )
     );
   }
   return api;

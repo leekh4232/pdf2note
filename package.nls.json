@@ -1,5 +1,5 @@
 {
-  "submenu.label": "PDF2Note: Add Note Area",
+  "submenu.label": "Add Note Area",
   "description": "Add a ruled note area and a header to PDF pages (also converts .ipynb/.md first via Ipynb PDF Converter). Password protection, teacher mode.",
   "config.title": "PDF2Note",
   "cmd.addNotes.title": "Add Note Area (PDF)",
